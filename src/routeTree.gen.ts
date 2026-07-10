@@ -13,6 +13,7 @@ import { Route as UsersRouteImport } from './routes/users'
 import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 
 const UsersRoute = UsersRouteImport.update({
@@ -35,6 +36,11 @@ const CoachesRoute = CoachesRouteImport.update({
   path: '/coaches',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
@@ -65,14 +74,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/coaches' | '/food' | '/gyms' | '/users'
+  fullPaths: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/coaches' | '/food' | '/gyms' | '/users'
-  id: '__root__' | '/' | '/coaches' | '/food' | '/gyms' | '/users'
+  to: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/coaches'
+    | '/food'
+    | '/gyms'
+    | '/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
@@ -109,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +145,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
