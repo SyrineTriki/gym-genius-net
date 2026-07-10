@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as GymsRouteImport } from './routes/gyms'
+import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const UsersRoute = UsersRouteImport.update({
 const GymsRoute = GymsRouteImport.update({
   id: '/gyms',
   path: '/gyms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoodRoute = FoodRouteImport.update({
+  id: '/food',
+  path: '/food',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoachesRoute = CoachesRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
+  '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/users': typeof UsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
+  '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/users': typeof UsersRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/coaches': typeof CoachesRoute
+  '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/users': typeof UsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/coaches' | '/gyms' | '/users'
+  fullPaths: '/' | '/coaches' | '/food' | '/gyms' | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/coaches' | '/gyms' | '/users'
-  id: '__root__' | '/' | '/coaches' | '/gyms' | '/users'
+  to: '/' | '/coaches' | '/food' | '/gyms' | '/users'
+  id: '__root__' | '/' | '/coaches' | '/food' | '/gyms' | '/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CoachesRoute: typeof CoachesRoute
+  FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
   UsersRoute: typeof UsersRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/gyms'
       fullPath: '/gyms'
       preLoaderRoute: typeof GymsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/food': {
+      id: '/food'
+      path: '/food'
+      fullPath: '/food'
+      preLoaderRoute: typeof FoodRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coaches': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CoachesRoute: CoachesRoute,
+  FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
   UsersRoute: UsersRoute,
 }
