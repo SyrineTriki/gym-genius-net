@@ -36,7 +36,7 @@ function SessionsPage() {
               <div />
               {weekDays.map((d) => <div key={d} className="rounded-lg bg-surface/40 px-2 py-2 text-center font-mono uppercase tracking-widest text-muted-foreground">{d}</div>)}
               {hours.map((h, hi) => (
-                <>
+                <div key={h} className="contents">
                   <div key={h} className="py-2 text-right pr-2 font-mono text-[10px] text-muted-foreground">{h}</div>
                   {weekDays.map((_, di) => {
                     const slot = schedule.find((s) => s.day === di && s.hour === hi);
@@ -51,7 +51,7 @@ function SessionsPage() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               ))}
             </div>
           </div>

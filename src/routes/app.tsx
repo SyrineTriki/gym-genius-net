@@ -4,7 +4,7 @@ import { athleteStats, todayWorkout } from "@/lib/mock-data-extra";
 import { Flame, Play, Zap, Droplet, Beef } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/app/")({ component: AthleteHome });
+export const Route = createFileRoute("/app")({ component: AthleteHome });
 
 function AthleteHome() {
   const s = athleteStats;

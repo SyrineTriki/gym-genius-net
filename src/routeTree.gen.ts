@@ -15,9 +15,9 @@ import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as CoachRouteImport } from './routes/coach'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as SuperTenantsRouteImport } from './routes/super.tenants'
 import { Route as SuperSystemRouteImport } from './routes/super.system'
 import { Route as SuperFeaturesRouteImport } from './routes/super.features'
@@ -67,6 +67,11 @@ const CoachRoute = CoachRouteImport.update({
   path: '/coach',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -75,11 +80,6 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/app/',
-  path: '/app/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuperTenantsRoute = SuperTenantsRouteImport.update({
@@ -128,54 +128,55 @@ const CoachClientsRoute = CoachClientsRouteImport.update({
   getParentRoute: () => CoachRoute,
 } as any)
 const AppWorkoutRoute = AppWorkoutRouteImport.update({
-  id: '/app/workout',
-  path: '/app/workout',
-  getParentRoute: () => rootRouteImport,
+  id: '/workout',
+  path: '/workout',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppScannerRoute = AppScannerRouteImport.update({
-  id: '/app/scanner',
-  path: '/app/scanner',
-  getParentRoute: () => rootRouteImport,
+  id: '/scanner',
+  path: '/scanner',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppProgressRoute = AppProgressRouteImport.update({
-  id: '/app/progress',
-  path: '/app/progress',
-  getParentRoute: () => rootRouteImport,
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppProfileRoute = AppProfileRouteImport.update({
-  id: '/app/profile',
-  path: '/app/profile',
-  getParentRoute: () => rootRouteImport,
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppNutritionRoute = AppNutritionRouteImport.update({
-  id: '/app/nutrition',
-  path: '/app/nutrition',
-  getParentRoute: () => rootRouteImport,
+  id: '/nutrition',
+  path: '/nutrition',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppMarketplaceRoute = AppMarketplaceRouteImport.update({
-  id: '/app/marketplace',
-  path: '/app/marketplace',
-  getParentRoute: () => rootRouteImport,
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppBudgetRoute = AppBudgetRouteImport.update({
-  id: '/app/budget',
-  path: '/app/budget',
-  getParentRoute: () => rootRouteImport,
+  id: '/budget',
+  path: '/budget',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppAiCoachRoute = AppAiCoachRouteImport.update({
-  id: '/app/ai-coach',
-  path: '/app/ai-coach',
-  getParentRoute: () => rootRouteImport,
+  id: '/ai-coach',
+  path: '/ai-coach',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppAchievementsRoute = AppAchievementsRouteImport.update({
-  id: '/app/achievements',
-  path: '/app/achievements',
-  getParentRoute: () => rootRouteImport,
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
@@ -200,11 +201,11 @@ export interface FileRoutesByFullPath {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
-  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
@@ -229,12 +230,12 @@ export interface FileRoutesByTo {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
-  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
@@ -259,13 +260,13 @@ export interface FileRoutesById {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
-  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/analytics'
+    | '/app'
     | '/coach'
     | '/coaches'
     | '/food'
@@ -290,11 +291,11 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
-    | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/analytics'
+    | '/app'
     | '/coach'
     | '/coaches'
     | '/food'
@@ -319,11 +320,11 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
-    | '/app'
   id:
     | '__root__'
     | '/'
     | '/analytics'
+    | '/app'
     | '/coach'
     | '/coaches'
     | '/food'
@@ -348,28 +349,18 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
-    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  AppRoute: typeof AppRouteWithChildren
   CoachRoute: typeof CoachRouteWithChildren
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
   SuperRoute: typeof SuperRouteWithChildren
   UsersRoute: typeof UsersRoute
-  AppAchievementsRoute: typeof AppAchievementsRoute
-  AppAiCoachRoute: typeof AppAiCoachRoute
-  AppBudgetRoute: typeof AppBudgetRoute
-  AppMarketplaceRoute: typeof AppMarketplaceRoute
-  AppNutritionRoute: typeof AppNutritionRoute
-  AppProfileRoute: typeof AppProfileRoute
-  AppProgressRoute: typeof AppProgressRoute
-  AppScannerRoute: typeof AppScannerRoute
-  AppWorkoutRoute: typeof AppWorkoutRoute
-  AppIndexRoute: typeof AppIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -416,6 +407,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/analytics': {
       id: '/analytics'
       path: '/analytics'
@@ -428,13 +426,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/app/': {
-      id: '/app/'
-      path: '/app'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/super/tenants': {
@@ -502,69 +493,95 @@ declare module '@tanstack/react-router' {
     }
     '/app/workout': {
       id: '/app/workout'
-      path: '/app/workout'
+      path: '/workout'
       fullPath: '/app/workout'
       preLoaderRoute: typeof AppWorkoutRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/scanner': {
       id: '/app/scanner'
-      path: '/app/scanner'
+      path: '/scanner'
       fullPath: '/app/scanner'
       preLoaderRoute: typeof AppScannerRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/progress': {
       id: '/app/progress'
-      path: '/app/progress'
+      path: '/progress'
       fullPath: '/app/progress'
       preLoaderRoute: typeof AppProgressRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/profile': {
       id: '/app/profile'
-      path: '/app/profile'
+      path: '/profile'
       fullPath: '/app/profile'
       preLoaderRoute: typeof AppProfileRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/nutrition': {
       id: '/app/nutrition'
-      path: '/app/nutrition'
+      path: '/nutrition'
       fullPath: '/app/nutrition'
       preLoaderRoute: typeof AppNutritionRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/marketplace': {
       id: '/app/marketplace'
-      path: '/app/marketplace'
+      path: '/marketplace'
       fullPath: '/app/marketplace'
       preLoaderRoute: typeof AppMarketplaceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/budget': {
       id: '/app/budget'
-      path: '/app/budget'
+      path: '/budget'
       fullPath: '/app/budget'
       preLoaderRoute: typeof AppBudgetRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/ai-coach': {
       id: '/app/ai-coach'
-      path: '/app/ai-coach'
+      path: '/ai-coach'
       fullPath: '/app/ai-coach'
       preLoaderRoute: typeof AppAiCoachRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/achievements': {
       id: '/app/achievements'
-      path: '/app/achievements'
+      path: '/achievements'
       fullPath: '/app/achievements'
       preLoaderRoute: typeof AppAchievementsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
   }
 }
+
+interface AppRouteChildren {
+  AppAchievementsRoute: typeof AppAchievementsRoute
+  AppAiCoachRoute: typeof AppAiCoachRoute
+  AppBudgetRoute: typeof AppBudgetRoute
+  AppMarketplaceRoute: typeof AppMarketplaceRoute
+  AppNutritionRoute: typeof AppNutritionRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppProgressRoute: typeof AppProgressRoute
+  AppScannerRoute: typeof AppScannerRoute
+  AppWorkoutRoute: typeof AppWorkoutRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAchievementsRoute: AppAchievementsRoute,
+  AppAiCoachRoute: AppAiCoachRoute,
+  AppBudgetRoute: AppBudgetRoute,
+  AppMarketplaceRoute: AppMarketplaceRoute,
+  AppNutritionRoute: AppNutritionRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppProgressRoute: AppProgressRoute,
+  AppScannerRoute: AppScannerRoute,
+  AppWorkoutRoute: AppWorkoutRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface CoachRouteChildren {
   CoachClientsRoute: typeof CoachClientsRoute
@@ -603,22 +620,13 @@ const SuperRouteWithChildren = SuperRoute._addFileChildren(SuperRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  AppRoute: AppRouteWithChildren,
   CoachRoute: CoachRouteWithChildren,
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
   SuperRoute: SuperRouteWithChildren,
   UsersRoute: UsersRoute,
-  AppAchievementsRoute: AppAchievementsRoute,
-  AppAiCoachRoute: AppAiCoachRoute,
-  AppBudgetRoute: AppBudgetRoute,
-  AppMarketplaceRoute: AppMarketplaceRoute,
-  AppNutritionRoute: AppNutritionRoute,
-  AppProfileRoute: AppProfileRoute,
-  AppProgressRoute: AppProgressRoute,
-  AppScannerRoute: AppScannerRoute,
-  AppWorkoutRoute: AppWorkoutRoute,
-  AppIndexRoute: AppIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
