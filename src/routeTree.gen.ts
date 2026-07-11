@@ -14,6 +14,7 @@ import { Route as SuperRouteImport } from './routes/super'
 import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
+import { Route as CoachRouteImport } from './routes/coach'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SuperTenantsRouteImport } from './routes/super.tenants'
@@ -21,6 +22,10 @@ import { Route as SuperSystemRouteImport } from './routes/super.system'
 import { Route as SuperFeaturesRouteImport } from './routes/super.features'
 import { Route as SuperBillingRouteImport } from './routes/super.billing'
 import { Route as SuperAuditRouteImport } from './routes/super.audit'
+import { Route as CoachSessionsRouteImport } from './routes/coach.sessions'
+import { Route as CoachProgramsRouteImport } from './routes/coach.programs'
+import { Route as CoachMessagesRouteImport } from './routes/coach.messages'
+import { Route as CoachClientsRouteImport } from './routes/coach.clients'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -45,6 +50,11 @@ const FoodRoute = FoodRouteImport.update({
 const CoachesRoute = CoachesRouteImport.update({
   id: '/coaches',
   path: '/coaches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachRoute = CoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
@@ -82,15 +92,40 @@ const SuperAuditRoute = SuperAuditRouteImport.update({
   path: '/audit',
   getParentRoute: () => SuperRoute,
 } as any)
+const CoachSessionsRoute = CoachSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachProgramsRoute = CoachProgramsRouteImport.update({
+  id: '/programs',
+  path: '/programs',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachMessagesRoute = CoachMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachClientsRoute = CoachClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => CoachRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
   '/super/audit': typeof SuperAuditRoute
   '/super/billing': typeof SuperBillingRoute
   '/super/features': typeof SuperFeaturesRoute
@@ -100,11 +135,16 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
   '/super/audit': typeof SuperAuditRoute
   '/super/billing': typeof SuperBillingRoute
   '/super/features': typeof SuperFeaturesRoute
@@ -115,11 +155,16 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
   '/super/audit': typeof SuperAuditRoute
   '/super/billing': typeof SuperBillingRoute
   '/super/features': typeof SuperFeaturesRoute
@@ -131,11 +176,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/analytics'
+    | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
     | '/super'
     | '/users'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
     | '/super/audit'
     | '/super/billing'
     | '/super/features'
@@ -145,11 +195,16 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/analytics'
+    | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
     | '/super'
     | '/users'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
     | '/super/audit'
     | '/super/billing'
     | '/super/features'
@@ -159,11 +214,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/analytics'
+    | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
     | '/super'
     | '/users'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
     | '/super/audit'
     | '/super/billing'
     | '/super/features'
@@ -174,6 +234,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  CoachRoute: typeof CoachRouteWithChildren
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
@@ -216,6 +277,13 @@ declare module '@tanstack/react-router' {
       path: '/coaches'
       fullPath: '/coaches'
       preLoaderRoute: typeof CoachesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coach': {
+      id: '/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof CoachRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analytics': {
@@ -267,8 +335,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperAuditRouteImport
       parentRoute: typeof SuperRoute
     }
+    '/coach/sessions': {
+      id: '/coach/sessions'
+      path: '/sessions'
+      fullPath: '/coach/sessions'
+      preLoaderRoute: typeof CoachSessionsRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/programs': {
+      id: '/coach/programs'
+      path: '/programs'
+      fullPath: '/coach/programs'
+      preLoaderRoute: typeof CoachProgramsRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/messages': {
+      id: '/coach/messages'
+      path: '/messages'
+      fullPath: '/coach/messages'
+      preLoaderRoute: typeof CoachMessagesRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/clients': {
+      id: '/coach/clients'
+      path: '/clients'
+      fullPath: '/coach/clients'
+      preLoaderRoute: typeof CoachClientsRouteImport
+      parentRoute: typeof CoachRoute
+    }
   }
 }
+
+interface CoachRouteChildren {
+  CoachClientsRoute: typeof CoachClientsRoute
+  CoachMessagesRoute: typeof CoachMessagesRoute
+  CoachProgramsRoute: typeof CoachProgramsRoute
+  CoachSessionsRoute: typeof CoachSessionsRoute
+}
+
+const CoachRouteChildren: CoachRouteChildren = {
+  CoachClientsRoute: CoachClientsRoute,
+  CoachMessagesRoute: CoachMessagesRoute,
+  CoachProgramsRoute: CoachProgramsRoute,
+  CoachSessionsRoute: CoachSessionsRoute,
+}
+
+const CoachRouteWithChildren = CoachRoute._addFileChildren(CoachRouteChildren)
 
 interface SuperRouteChildren {
   SuperAuditRoute: typeof SuperAuditRoute
@@ -291,6 +403,7 @@ const SuperRouteWithChildren = SuperRoute._addFileChildren(SuperRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  CoachRoute: CoachRouteWithChildren,
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
