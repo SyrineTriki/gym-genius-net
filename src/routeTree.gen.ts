@@ -17,6 +17,7 @@ import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as SuperTenantsRouteImport } from './routes/super.tenants'
 import { Route as SuperSystemRouteImport } from './routes/super.system'
 import { Route as SuperFeaturesRouteImport } from './routes/super.features'
@@ -26,6 +27,15 @@ import { Route as CoachSessionsRouteImport } from './routes/coach.sessions'
 import { Route as CoachProgramsRouteImport } from './routes/coach.programs'
 import { Route as CoachMessagesRouteImport } from './routes/coach.messages'
 import { Route as CoachClientsRouteImport } from './routes/coach.clients'
+import { Route as AppWorkoutRouteImport } from './routes/app.workout'
+import { Route as AppScannerRouteImport } from './routes/app.scanner'
+import { Route as AppProgressRouteImport } from './routes/app.progress'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppNutritionRouteImport } from './routes/app.nutrition'
+import { Route as AppMarketplaceRouteImport } from './routes/app.marketplace'
+import { Route as AppBudgetRouteImport } from './routes/app.budget'
+import { Route as AppAiCoachRouteImport } from './routes/app.ai-coach'
+import { Route as AppAchievementsRouteImport } from './routes/app.achievements'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -65,6 +75,11 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/app/',
+  path: '/app/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuperTenantsRoute = SuperTenantsRouteImport.update({
@@ -112,6 +127,51 @@ const CoachClientsRoute = CoachClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => CoachRoute,
 } as any)
+const AppWorkoutRoute = AppWorkoutRouteImport.update({
+  id: '/app/workout',
+  path: '/app/workout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppScannerRoute = AppScannerRouteImport.update({
+  id: '/app/scanner',
+  path: '/app/scanner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppProgressRoute = AppProgressRouteImport.update({
+  id: '/app/progress',
+  path: '/app/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/app/profile',
+  path: '/app/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppNutritionRoute = AppNutritionRouteImport.update({
+  id: '/app/nutrition',
+  path: '/app/nutrition',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppMarketplaceRoute = AppMarketplaceRouteImport.update({
+  id: '/app/marketplace',
+  path: '/app/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBudgetRoute = AppBudgetRouteImport.update({
+  id: '/app/budget',
+  path: '/app/budget',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAiCoachRoute = AppAiCoachRouteImport.update({
+  id: '/app/ai-coach',
+  path: '/app/ai-coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAchievementsRoute = AppAchievementsRouteImport.update({
+  id: '/app/achievements',
+  path: '/app/achievements',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +182,15 @@ export interface FileRoutesByFullPath {
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
   '/coach/clients': typeof CoachClientsRoute
   '/coach/messages': typeof CoachMessagesRoute
   '/coach/programs': typeof CoachProgramsRoute
@@ -131,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -141,6 +211,15 @@ export interface FileRoutesByTo {
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
   '/coach/clients': typeof CoachClientsRoute
   '/coach/messages': typeof CoachMessagesRoute
   '/coach/programs': typeof CoachProgramsRoute
@@ -150,6 +229,7 @@ export interface FileRoutesByTo {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +241,15 @@ export interface FileRoutesById {
   '/gyms': typeof GymsRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
   '/coach/clients': typeof CoachClientsRoute
   '/coach/messages': typeof CoachMessagesRoute
   '/coach/programs': typeof CoachProgramsRoute
@@ -170,6 +259,7 @@ export interface FileRoutesById {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -182,6 +272,15 @@ export interface FileRouteTypes {
     | '/gyms'
     | '/super'
     | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
     | '/coach/clients'
     | '/coach/messages'
     | '/coach/programs'
@@ -191,6 +290,7 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -201,6 +301,15 @@ export interface FileRouteTypes {
     | '/gyms'
     | '/super'
     | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
     | '/coach/clients'
     | '/coach/messages'
     | '/coach/programs'
@@ -210,6 +319,7 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -220,6 +330,15 @@ export interface FileRouteTypes {
     | '/gyms'
     | '/super'
     | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
     | '/coach/clients'
     | '/coach/messages'
     | '/coach/programs'
@@ -229,6 +348,7 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -240,6 +360,16 @@ export interface RootRouteChildren {
   GymsRoute: typeof GymsRoute
   SuperRoute: typeof SuperRouteWithChildren
   UsersRoute: typeof UsersRoute
+  AppAchievementsRoute: typeof AppAchievementsRoute
+  AppAiCoachRoute: typeof AppAiCoachRoute
+  AppBudgetRoute: typeof AppBudgetRoute
+  AppMarketplaceRoute: typeof AppMarketplaceRoute
+  AppNutritionRoute: typeof AppNutritionRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppProgressRoute: typeof AppProgressRoute
+  AppScannerRoute: typeof AppScannerRoute
+  AppWorkoutRoute: typeof AppWorkoutRoute
+  AppIndexRoute: typeof AppIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -298,6 +428,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/app'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/super/tenants': {
@@ -363,6 +500,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachClientsRouteImport
       parentRoute: typeof CoachRoute
     }
+    '/app/workout': {
+      id: '/app/workout'
+      path: '/app/workout'
+      fullPath: '/app/workout'
+      preLoaderRoute: typeof AppWorkoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/scanner': {
+      id: '/app/scanner'
+      path: '/app/scanner'
+      fullPath: '/app/scanner'
+      preLoaderRoute: typeof AppScannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/progress': {
+      id: '/app/progress'
+      path: '/app/progress'
+      fullPath: '/app/progress'
+      preLoaderRoute: typeof AppProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/app/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/nutrition': {
+      id: '/app/nutrition'
+      path: '/app/nutrition'
+      fullPath: '/app/nutrition'
+      preLoaderRoute: typeof AppNutritionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/marketplace': {
+      id: '/app/marketplace'
+      path: '/app/marketplace'
+      fullPath: '/app/marketplace'
+      preLoaderRoute: typeof AppMarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/budget': {
+      id: '/app/budget'
+      path: '/app/budget'
+      fullPath: '/app/budget'
+      preLoaderRoute: typeof AppBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/ai-coach': {
+      id: '/app/ai-coach'
+      path: '/app/ai-coach'
+      fullPath: '/app/ai-coach'
+      preLoaderRoute: typeof AppAiCoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/achievements': {
+      id: '/app/achievements'
+      path: '/app/achievements'
+      fullPath: '/app/achievements'
+      preLoaderRoute: typeof AppAchievementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -409,6 +609,16 @@ const rootRouteChildren: RootRouteChildren = {
   GymsRoute: GymsRoute,
   SuperRoute: SuperRouteWithChildren,
   UsersRoute: UsersRoute,
+  AppAchievementsRoute: AppAchievementsRoute,
+  AppAiCoachRoute: AppAiCoachRoute,
+  AppBudgetRoute: AppBudgetRoute,
+  AppMarketplaceRoute: AppMarketplaceRoute,
+  AppNutritionRoute: AppNutritionRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppProgressRoute: AppProgressRoute,
+  AppScannerRoute: AppScannerRoute,
+  AppWorkoutRoute: AppWorkoutRoute,
+  AppIndexRoute: AppIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
