@@ -10,15 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
+import { Route as SuperRouteImport } from './routes/super'
 import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SuperTenantsRouteImport } from './routes/super.tenants'
+import { Route as SuperSystemRouteImport } from './routes/super.system'
+import { Route as SuperFeaturesRouteImport } from './routes/super.features'
+import { Route as SuperBillingRouteImport } from './routes/super.billing'
+import { Route as SuperAuditRouteImport } from './routes/super.audit'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuperRoute = SuperRouteImport.update({
+  id: '/super',
+  path: '/super',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GymsRoute = GymsRouteImport.update({
@@ -46,6 +57,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuperTenantsRoute = SuperTenantsRouteImport.update({
+  id: '/tenants',
+  path: '/tenants',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperSystemRoute = SuperSystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperFeaturesRoute = SuperFeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperBillingRoute = SuperBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperAuditRoute = SuperAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => SuperRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +89,13 @@ export interface FileRoutesByFullPath {
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +103,13 @@ export interface FileRoutesByTo {
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,13 +118,43 @@ export interface FileRoutesById {
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/coaches'
+    | '/food'
+    | '/gyms'
+    | '/super'
+    | '/users'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
+  to:
+    | '/'
+    | '/analytics'
+    | '/coaches'
+    | '/food'
+    | '/gyms'
+    | '/super'
+    | '/users'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   id:
     | '__root__'
     | '/'
@@ -84,7 +162,13 @@ export interface FileRouteTypes {
     | '/coaches'
     | '/food'
     | '/gyms'
+    | '/super'
     | '/users'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,6 +177,7 @@ export interface RootRouteChildren {
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
+  SuperRoute: typeof SuperRouteWithChildren
   UsersRoute: typeof UsersRoute
 }
 
@@ -103,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/users'
       preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super': {
+      id: '/super'
+      path: '/super'
+      fullPath: '/super'
+      preLoaderRoute: typeof SuperRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gyms': {
@@ -140,8 +232,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/super/tenants': {
+      id: '/super/tenants'
+      path: '/tenants'
+      fullPath: '/super/tenants'
+      preLoaderRoute: typeof SuperTenantsRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/system': {
+      id: '/super/system'
+      path: '/system'
+      fullPath: '/super/system'
+      preLoaderRoute: typeof SuperSystemRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/features': {
+      id: '/super/features'
+      path: '/features'
+      fullPath: '/super/features'
+      preLoaderRoute: typeof SuperFeaturesRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/billing': {
+      id: '/super/billing'
+      path: '/billing'
+      fullPath: '/super/billing'
+      preLoaderRoute: typeof SuperBillingRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/audit': {
+      id: '/super/audit'
+      path: '/audit'
+      fullPath: '/super/audit'
+      preLoaderRoute: typeof SuperAuditRouteImport
+      parentRoute: typeof SuperRoute
+    }
   }
 }
+
+interface SuperRouteChildren {
+  SuperAuditRoute: typeof SuperAuditRoute
+  SuperBillingRoute: typeof SuperBillingRoute
+  SuperFeaturesRoute: typeof SuperFeaturesRoute
+  SuperSystemRoute: typeof SuperSystemRoute
+  SuperTenantsRoute: typeof SuperTenantsRoute
+}
+
+const SuperRouteChildren: SuperRouteChildren = {
+  SuperAuditRoute: SuperAuditRoute,
+  SuperBillingRoute: SuperBillingRoute,
+  SuperFeaturesRoute: SuperFeaturesRoute,
+  SuperSystemRoute: SuperSystemRoute,
+  SuperTenantsRoute: SuperTenantsRoute,
+}
+
+const SuperRouteWithChildren = SuperRoute._addFileChildren(SuperRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -149,6 +294,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
+  SuperRoute: SuperRouteWithChildren,
   UsersRoute: UsersRoute,
 }
 export const routeTree = rootRouteImport
