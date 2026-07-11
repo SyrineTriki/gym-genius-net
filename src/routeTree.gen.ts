@@ -10,15 +10,41 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
+import { Route as SuperRouteImport } from './routes/super'
 import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
+import { Route as CoachRouteImport } from './routes/coach'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SuperTenantsRouteImport } from './routes/super.tenants'
+import { Route as SuperSystemRouteImport } from './routes/super.system'
+import { Route as SuperFeaturesRouteImport } from './routes/super.features'
+import { Route as SuperBillingRouteImport } from './routes/super.billing'
+import { Route as SuperAuditRouteImport } from './routes/super.audit'
+import { Route as CoachSessionsRouteImport } from './routes/coach.sessions'
+import { Route as CoachProgramsRouteImport } from './routes/coach.programs'
+import { Route as CoachMessagesRouteImport } from './routes/coach.messages'
+import { Route as CoachClientsRouteImport } from './routes/coach.clients'
+import { Route as AppWorkoutRouteImport } from './routes/app.workout'
+import { Route as AppScannerRouteImport } from './routes/app.scanner'
+import { Route as AppProgressRouteImport } from './routes/app.progress'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppNutritionRouteImport } from './routes/app.nutrition'
+import { Route as AppMarketplaceRouteImport } from './routes/app.marketplace'
+import { Route as AppBudgetRouteImport } from './routes/app.budget'
+import { Route as AppAiCoachRouteImport } from './routes/app.ai-coach'
+import { Route as AppAchievementsRouteImport } from './routes/app.achievements'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuperRoute = SuperRouteImport.update({
+  id: '/super',
+  path: '/super',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GymsRoute = GymsRouteImport.update({
@@ -36,6 +62,16 @@ const CoachesRoute = CoachesRouteImport.update({
   path: '/coaches',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachRoute = CoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -46,53 +82,284 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuperTenantsRoute = SuperTenantsRouteImport.update({
+  id: '/tenants',
+  path: '/tenants',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperSystemRoute = SuperSystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperFeaturesRoute = SuperFeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperBillingRoute = SuperBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => SuperRoute,
+} as any)
+const SuperAuditRoute = SuperAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => SuperRoute,
+} as any)
+const CoachSessionsRoute = CoachSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachProgramsRoute = CoachProgramsRouteImport.update({
+  id: '/programs',
+  path: '/programs',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachMessagesRoute = CoachMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => CoachRoute,
+} as any)
+const CoachClientsRoute = CoachClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => CoachRoute,
+} as any)
+const AppWorkoutRoute = AppWorkoutRouteImport.update({
+  id: '/workout',
+  path: '/workout',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScannerRoute = AppScannerRouteImport.update({
+  id: '/scanner',
+  path: '/scanner',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProgressRoute = AppProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNutritionRoute = AppNutritionRouteImport.update({
+  id: '/nutrition',
+  path: '/nutrition',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMarketplaceRoute = AppMarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBudgetRoute = AppBudgetRouteImport.update({
+  id: '/budget',
+  path: '/budget',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAiCoachRoute = AppAiCoachRouteImport.update({
+  id: '/ai-coach',
+  path: '/ai-coach',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAchievementsRoute = AppAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/app': typeof AppRouteWithChildren
+  '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/app/achievements': typeof AppAchievementsRoute
+  '/app/ai-coach': typeof AppAiCoachRoute
+  '/app/budget': typeof AppBudgetRoute
+  '/app/marketplace': typeof AppMarketplaceRoute
+  '/app/nutrition': typeof AppNutritionRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/scanner': typeof AppScannerRoute
+  '/app/workout': typeof AppWorkoutRoute
+  '/coach/clients': typeof CoachClientsRoute
+  '/coach/messages': typeof CoachMessagesRoute
+  '/coach/programs': typeof CoachProgramsRoute
+  '/coach/sessions': typeof CoachSessionsRoute
+  '/super/audit': typeof SuperAuditRoute
+  '/super/billing': typeof SuperBillingRoute
+  '/super/features': typeof SuperFeaturesRoute
+  '/super/system': typeof SuperSystemRoute
+  '/super/tenants': typeof SuperTenantsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/app'
+    | '/coach'
+    | '/coaches'
+    | '/food'
+    | '/gyms'
+    | '/super'
+    | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/analytics' | '/coaches' | '/food' | '/gyms' | '/users'
+  to:
+    | '/'
+    | '/analytics'
+    | '/app'
+    | '/coach'
+    | '/coaches'
+    | '/food'
+    | '/gyms'
+    | '/super'
+    | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   id:
     | '__root__'
     | '/'
     | '/analytics'
+    | '/app'
+    | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
+    | '/super'
     | '/users'
+    | '/app/achievements'
+    | '/app/ai-coach'
+    | '/app/budget'
+    | '/app/marketplace'
+    | '/app/nutrition'
+    | '/app/profile'
+    | '/app/progress'
+    | '/app/scanner'
+    | '/app/workout'
+    | '/coach/clients'
+    | '/coach/messages'
+    | '/coach/programs'
+    | '/coach/sessions'
+    | '/super/audit'
+    | '/super/billing'
+    | '/super/features'
+    | '/super/system'
+    | '/super/tenants'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  AppRoute: typeof AppRouteWithChildren
+  CoachRoute: typeof CoachRouteWithChildren
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
+  SuperRoute: typeof SuperRouteWithChildren
   UsersRoute: typeof UsersRoute
 }
 
@@ -103,6 +370,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/users'
       preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super': {
+      id: '/super'
+      path: '/super'
+      fullPath: '/super'
+      preLoaderRoute: typeof SuperRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gyms': {
@@ -126,6 +400,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coach': {
+      id: '/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/analytics': {
       id: '/analytics'
       path: '/analytics'
@@ -140,15 +428,204 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/super/tenants': {
+      id: '/super/tenants'
+      path: '/tenants'
+      fullPath: '/super/tenants'
+      preLoaderRoute: typeof SuperTenantsRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/system': {
+      id: '/super/system'
+      path: '/system'
+      fullPath: '/super/system'
+      preLoaderRoute: typeof SuperSystemRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/features': {
+      id: '/super/features'
+      path: '/features'
+      fullPath: '/super/features'
+      preLoaderRoute: typeof SuperFeaturesRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/billing': {
+      id: '/super/billing'
+      path: '/billing'
+      fullPath: '/super/billing'
+      preLoaderRoute: typeof SuperBillingRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/super/audit': {
+      id: '/super/audit'
+      path: '/audit'
+      fullPath: '/super/audit'
+      preLoaderRoute: typeof SuperAuditRouteImport
+      parentRoute: typeof SuperRoute
+    }
+    '/coach/sessions': {
+      id: '/coach/sessions'
+      path: '/sessions'
+      fullPath: '/coach/sessions'
+      preLoaderRoute: typeof CoachSessionsRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/programs': {
+      id: '/coach/programs'
+      path: '/programs'
+      fullPath: '/coach/programs'
+      preLoaderRoute: typeof CoachProgramsRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/messages': {
+      id: '/coach/messages'
+      path: '/messages'
+      fullPath: '/coach/messages'
+      preLoaderRoute: typeof CoachMessagesRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/coach/clients': {
+      id: '/coach/clients'
+      path: '/clients'
+      fullPath: '/coach/clients'
+      preLoaderRoute: typeof CoachClientsRouteImport
+      parentRoute: typeof CoachRoute
+    }
+    '/app/workout': {
+      id: '/app/workout'
+      path: '/workout'
+      fullPath: '/app/workout'
+      preLoaderRoute: typeof AppWorkoutRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/scanner': {
+      id: '/app/scanner'
+      path: '/scanner'
+      fullPath: '/app/scanner'
+      preLoaderRoute: typeof AppScannerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/progress': {
+      id: '/app/progress'
+      path: '/progress'
+      fullPath: '/app/progress'
+      preLoaderRoute: typeof AppProgressRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/nutrition': {
+      id: '/app/nutrition'
+      path: '/nutrition'
+      fullPath: '/app/nutrition'
+      preLoaderRoute: typeof AppNutritionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/marketplace': {
+      id: '/app/marketplace'
+      path: '/marketplace'
+      fullPath: '/app/marketplace'
+      preLoaderRoute: typeof AppMarketplaceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/budget': {
+      id: '/app/budget'
+      path: '/budget'
+      fullPath: '/app/budget'
+      preLoaderRoute: typeof AppBudgetRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ai-coach': {
+      id: '/app/ai-coach'
+      path: '/ai-coach'
+      fullPath: '/app/ai-coach'
+      preLoaderRoute: typeof AppAiCoachRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/achievements': {
+      id: '/app/achievements'
+      path: '/achievements'
+      fullPath: '/app/achievements'
+      preLoaderRoute: typeof AppAchievementsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
+
+interface AppRouteChildren {
+  AppAchievementsRoute: typeof AppAchievementsRoute
+  AppAiCoachRoute: typeof AppAiCoachRoute
+  AppBudgetRoute: typeof AppBudgetRoute
+  AppMarketplaceRoute: typeof AppMarketplaceRoute
+  AppNutritionRoute: typeof AppNutritionRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppProgressRoute: typeof AppProgressRoute
+  AppScannerRoute: typeof AppScannerRoute
+  AppWorkoutRoute: typeof AppWorkoutRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAchievementsRoute: AppAchievementsRoute,
+  AppAiCoachRoute: AppAiCoachRoute,
+  AppBudgetRoute: AppBudgetRoute,
+  AppMarketplaceRoute: AppMarketplaceRoute,
+  AppNutritionRoute: AppNutritionRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppProgressRoute: AppProgressRoute,
+  AppScannerRoute: AppScannerRoute,
+  AppWorkoutRoute: AppWorkoutRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
+interface CoachRouteChildren {
+  CoachClientsRoute: typeof CoachClientsRoute
+  CoachMessagesRoute: typeof CoachMessagesRoute
+  CoachProgramsRoute: typeof CoachProgramsRoute
+  CoachSessionsRoute: typeof CoachSessionsRoute
+}
+
+const CoachRouteChildren: CoachRouteChildren = {
+  CoachClientsRoute: CoachClientsRoute,
+  CoachMessagesRoute: CoachMessagesRoute,
+  CoachProgramsRoute: CoachProgramsRoute,
+  CoachSessionsRoute: CoachSessionsRoute,
+}
+
+const CoachRouteWithChildren = CoachRoute._addFileChildren(CoachRouteChildren)
+
+interface SuperRouteChildren {
+  SuperAuditRoute: typeof SuperAuditRoute
+  SuperBillingRoute: typeof SuperBillingRoute
+  SuperFeaturesRoute: typeof SuperFeaturesRoute
+  SuperSystemRoute: typeof SuperSystemRoute
+  SuperTenantsRoute: typeof SuperTenantsRoute
+}
+
+const SuperRouteChildren: SuperRouteChildren = {
+  SuperAuditRoute: SuperAuditRoute,
+  SuperBillingRoute: SuperBillingRoute,
+  SuperFeaturesRoute: SuperFeaturesRoute,
+  SuperSystemRoute: SuperSystemRoute,
+  SuperTenantsRoute: SuperTenantsRoute,
+}
+
+const SuperRouteWithChildren = SuperRoute._addFileChildren(SuperRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  AppRoute: AppRouteWithChildren,
+  CoachRoute: CoachRouteWithChildren,
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
+  SuperRoute: SuperRouteWithChildren,
   UsersRoute: UsersRoute,
 }
 export const routeTree = rootRouteImport

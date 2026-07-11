@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { RoleSwitcher } from "@/components/admin/role-switcher";
 import {
   LayoutDashboard,
   Users,
@@ -114,6 +115,7 @@ function TopBar({ title }: { title: string }) {
       <h1 className="truncate text-lg font-bold tracking-tight">{title}</h1>
 
       <div className="relative ml-auto hidden max-w-md flex-1 md:block">
+
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <input
           type="search"
@@ -126,6 +128,7 @@ function TopBar({ title }: { title: string }) {
         <Bell className="size-4" />
         <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-teal shadow-[0_0_6px_var(--teal-glow)]" />
       </button>
+      <RoleSwitcher />
       <button className="grid size-9 place-items-center rounded-full border border-border bg-surface/60 text-muted-foreground transition-colors hover:text-foreground">
         <Settings className="size-4" />
       </button>
