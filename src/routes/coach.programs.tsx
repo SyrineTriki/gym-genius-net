@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CoachShell } from "@/components/coach/coach-shell";
+import { CoachPhoneFrame } from "@/components/coach/coach-phone-frame";
 import { Plus, Copy, MoreHorizontal, Sparkles, Dumbbell, Timer } from "lucide-react";
 
 export const Route = createFileRoute("/coach/programs")({ component: ProgramsPage });
@@ -13,53 +13,61 @@ const programs = [
   { id: "P6", name: "Cut Phase — 8 Weeks", weeks: 8, assigned: 11, level: "Intermediate", tone: "amber" },
 ];
 
+const toneBg: Record<string, string> = {
+  amber: "bg-amber/15 text-amber",
+  teal: "bg-teal/15 text-teal",
+  violet: "bg-violet/15 text-violet",
+  emerald: "bg-emerald/15 text-emerald",
+  rose: "bg-rose/15 text-rose",
+};
+
 function ProgramsPage() {
   return (
-    <CoachShell title="Programs">
-      <div className="mx-auto max-w-[1600px] space-y-6">
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">Reusable training blocks assigned to clients.</p>
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber to-rose px-4 py-2 text-xs font-bold text-primary-foreground shadow-[0_8px_24px_-8px_var(--amber)]"><Plus className="size-4" /> New Program</button>
-        </div>
+    <CoachPhoneFrame title="Programs">
+      <div className="space-y-4 p-4">
+        <p className="text-xs text-muted-foreground">Reusable training blocks assigned to clients.</p>
 
-        {/* AI Program Builder stub */}
-        <div className="glass-card relative overflow-hidden p-6">
-          <div aria-hidden className="absolute -right-16 -top-16 size-48 rounded-full bg-amber/20 blur-3xl" />
-          <div className="relative flex items-start gap-4">
-            <div className="grid size-12 place-items-center rounded-xl bg-gradient-to-br from-amber to-rose shadow-[0_0_24px_-6px_var(--amber)]"><Sparkles className="size-6 text-primary-foreground" /></div>
-            <div className="flex-1">
-              <div className="text-lg font-bold">AI Program Builder</div>
-              <div className="mt-1 text-sm text-muted-foreground">Describe the goal, level, and equipment — get a full periodized plan.</div>
-              <div className="mt-4 flex gap-2">
-                <input placeholder="e.g. Intermediate lifter, 4x/wk, dumbbells only, cut phase 10 weeks…" className="h-11 flex-1 rounded-lg border border-border bg-surface/60 px-4 text-sm outline-none focus:border-amber/50" />
-                <button className="rounded-lg bg-gradient-to-r from-amber to-rose px-5 text-xs font-bold text-primary-foreground">Generate</button>
+        {/* AI Program Builder */}
+        <div className="glass-card relative overflow-hidden p-4">
+          <div aria-hidden className="absolute -right-10 -top-10 size-36 rounded-full bg-amber/20 blur-3xl" />
+          <div className="relative">
+            <div className="flex items-center gap-3">
+              <div className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-amber to-rose shadow-[0_0_20px_-6px_var(--amber)]"><Sparkles className="size-5 text-primary-foreground" /></div>
+              <div>
+                <div className="text-sm font-bold">AI Program Builder</div>
+                <div className="text-[11px] text-muted-foreground">Describe goal & level</div>
               </div>
             </div>
+            <textarea placeholder="e.g. Intermediate, 4x/wk, dumbbells only, cut 10 weeks…" rows={3} className="mt-3 w-full resize-none rounded-lg border border-border bg-surface/60 p-3 text-xs outline-none focus:border-amber/50" />
+            <button className="mt-2 w-full rounded-lg bg-gradient-to-r from-amber to-rose py-2 text-xs font-bold text-primary-foreground">Generate Program</button>
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface/40 py-2.5 text-xs font-bold">
+          <Plus className="size-4" /> New Program
+        </button>
+
+        <div className="space-y-2.5">
           {programs.map((p) => (
-            <div key={p.id} className="glass-card group relative overflow-hidden p-5 transition-all hover:shadow-[0_20px_60px_-20px_var(--amber)]">
-              <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-${p.tone}/40 via-transparent to-transparent`} />
+            <div key={p.id} className="glass-card p-4">
               <div className="flex items-start justify-between">
-                <div className={`grid size-10 place-items-center rounded-lg bg-${p.tone}/15 text-${p.tone}`}><Dumbbell className="size-4" /></div>
-                <button className="text-muted-foreground hover:text-foreground"><MoreHorizontal className="size-4" /></button>
+                <div className={`grid size-9 place-items-center rounded-lg ${toneBg[p.tone]}`}><Dumbbell className="size-4" /></div>
+                <button className="text-muted-foreground"><MoreHorizontal className="size-4" /></button>
               </div>
-              <div className="mt-4 text-base font-bold">{p.name}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{p.level}</div>
-              <div className="mt-4 flex items-center justify-between text-xs">
+              <div className="mt-3 text-sm font-bold">{p.name}</div>
+              <div className="text-[11px] text-muted-foreground">{p.level}</div>
+              <div className="mt-3 flex items-center justify-between text-[11px]">
                 <span className="flex items-center gap-1 text-muted-foreground"><Timer className="size-3" />{p.weeks} weeks</span>
                 <span className="font-mono font-bold">{p.assigned} assigned</span>
               </div>
-              <div className="mt-4 flex gap-2">
-                <button className="flex-1 rounded-lg border border-border bg-surface/40 py-2 text-xs font-semibold">Edit</button>
-                <button className="flex items-center gap-1 rounded-lg border border-border bg-surface/40 px-3 py-2 text-xs font-semibold"><Copy className="size-3" /></button>
+              <div className="mt-3 flex gap-2">
+                <button className="flex-1 rounded-lg border border-border bg-surface/40 py-1.5 text-[11px] font-semibold">Edit</button>
+                <button className="grid size-8 place-items-center rounded-lg border border-border bg-surface/40"><Copy className="size-3.5" /></button>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </CoachShell>
+    </CoachPhoneFrame>
   );
 }

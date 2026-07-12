@@ -1,81 +1,76 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CoachShell } from "@/components/coach/coach-shell";
+import { CoachPhoneFrame } from "@/components/coach/coach-phone-frame";
 import { coachSessions } from "@/lib/mock-data-extra";
 import { Video, MapPin, Clock, Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/coach/sessions")({ component: SessionsPage });
 
-const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const hours = Array.from({ length: 12 }, (_, i) => `${6 + i}:00`);
-
-// Fake week schedule
-const schedule = [
-  { day: 0, hour: 3, session: coachSessions[2] }, // Tue 9am Marcus (tomorrow)
-  { day: 0, hour: 11, session: coachSessions[0] }, // Mon 17 Sofia
-  { day: 0, hour: 13, session: coachSessions[1] }, // Mon 19 Amara
-  { day: 2, hour: 2, session: coachSessions[4] }, // Wed 8 Kai
-  { day: 4, hour: 0, session: coachSessions[3] }, // Fri 6:30 Diego
+const weekDays = [
+  { d: "Mon", n: 12, count: 2 },
+  { d: "Tue", n: 13, count: 1 },
+  { d: "Wed", n: 14, count: 1 },
+  { d: "Thu", n: 15, count: 0 },
+  { d: "Fri", n: 16, count: 1 },
+  { d: "Sat", n: 17, count: 0 },
+  { d: "Sun", n: 18, count: 0 },
 ];
 
 function SessionsPage() {
+  const [day, setDay] = useState(0);
   return (
-    <CoachShell title="Sessions">
-      <div className="mx-auto max-w-[1600px] space-y-6">
+    <CoachPhoneFrame title="Sessions">
+      <div className="space-y-4 p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <button className="grid size-9 place-items-center rounded-lg border border-border bg-surface/60"><ChevronLeft className="size-4" /></button>
-            <div className="text-sm font-semibold">Jul 12 — Jul 18, 2026</div>
-            <button className="grid size-9 place-items-center rounded-lg border border-border bg-surface/60"><ChevronRight className="size-4" /></button>
-          </div>
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber to-rose px-4 py-2 text-xs font-bold text-primary-foreground shadow-[0_8px_24px_-8px_var(--amber)]"><Plus className="size-4" /> New Session</button>
+          <button className="grid size-8 place-items-center rounded-lg border border-border"><ChevronLeft className="size-4" /></button>
+          <div className="text-xs font-semibold">Jul 12 — Jul 18</div>
+          <button className="grid size-8 place-items-center rounded-lg border border-border"><ChevronRight className="size-4" /></button>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-          <div className="glass-card overflow-hidden p-4">
-            <div className="grid grid-cols-[60px_repeat(7,minmax(0,1fr))] gap-1 text-xs">
-              <div />
-              {weekDays.map((d) => <div key={d} className="rounded-lg bg-surface/40 px-2 py-2 text-center font-mono uppercase tracking-widest text-muted-foreground">{d}</div>)}
-              {hours.map((h, hi) => (
-                <div key={h} className="contents">
-                  <div key={h} className="py-2 text-right pr-2 font-mono text-[10px] text-muted-foreground">{h}</div>
-                  {weekDays.map((_, di) => {
-                    const slot = schedule.find((s) => s.day === di && s.hour === hi);
-                    return (
-                      <div key={`${di}-${hi}`} className="min-h-[52px] rounded-lg border border-border/50 bg-surface/20 p-1">
-                        {slot && (
-                          <div className="h-full rounded-md border border-amber/40 bg-amber/10 p-1.5 text-[10px]">
-                            <div className="font-bold text-amber">{slot.session.client}</div>
-                            <div className="truncate text-muted-foreground">{slot.session.type}</div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="flex gap-1.5">
+          {weekDays.map((w, i) => (
+            <button
+              key={w.d}
+              onClick={() => setDay(i)}
+              className={`flex flex-1 flex-col items-center gap-1 rounded-xl py-2.5 transition-all ${day === i ? "bg-gradient-to-b from-amber to-rose text-primary-foreground shadow-[0_8px_20px_-8px_var(--amber)]" : "border border-border bg-surface/40 text-muted-foreground"}`}
+            >
+              <span className="font-mono text-[9px] uppercase tracking-widest">{w.d}</span>
+              <span className="text-sm font-bold">{w.n}</span>
+              {w.count > 0 && <span className={`size-1 rounded-full ${day === i ? "bg-primary-foreground" : "bg-amber"}`} />}
+            </button>
+          ))}
+        </div>
 
-          <div className="space-y-3">
-            <div className="text-sm font-semibold">Upcoming</div>
-            {coachSessions.map((s) => (
-              <div key={s.id} className="glass-card p-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-bold">{s.client}</div>
-                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${s.mode === "in-person" ? "bg-teal/15 text-teal" : "bg-violet/15 text-violet"}`}>
-                    {s.mode === "in-person" ? <MapPin className="mr-1 inline size-2.5" /> : <Video className="mr-1 inline size-2.5" />}{s.mode}
-                  </span>
+        <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber to-rose py-2.5 text-xs font-bold text-primary-foreground shadow-[0_8px_24px_-8px_var(--amber)]">
+          <Plus className="size-4" /> New Session
+        </button>
+
+        <div className="space-y-2.5">
+          <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Timeline</div>
+          {coachSessions.map((s) => (
+            <div key={s.id} className="glass-card p-3.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <div className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-amber to-teal text-[10px] font-bold">{s.client.split(" ").map(w => w[0]).join("")}</div>
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-bold">{s.client}</div>
+                      <div className="truncate text-[11px] text-muted-foreground">{s.type}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-1 text-xs text-muted-foreground">{s.type}</div>
-                <div className="mt-3 flex items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1 text-amber"><Clock className="size-3" />{s.time}</span>
-                  <span className="text-muted-foreground">{s.duration} min</span>
-                </div>
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-semibold ${s.mode === "in-person" ? "bg-teal/15 text-teal" : "bg-violet/15 text-violet"}`}>
+                  {s.mode === "in-person" ? <MapPin className="mr-1 inline size-2.5" /> : <Video className="mr-1 inline size-2.5" />}{s.mode}
+                </span>
               </div>
-            ))}
-          </div>
+              <div className="mt-3 flex items-center gap-3 border-t border-border/40 pt-2.5 text-[11px]">
+                <span className="flex items-center gap-1 text-amber"><Clock className="size-3" />{s.time}</span>
+                <span className="text-muted-foreground">· {s.duration} min</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </CoachShell>
+    </CoachPhoneFrame>
   );
 }
