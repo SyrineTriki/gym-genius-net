@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "sdk_version": "0.24.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://xvmshvafrzojmfdhytpb.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "fitforge-mcp",
+      "version": "0.1.0",
+      "title": "FitForge AI"
+    },
+    "tools": [
+      {
+        "name": "get_my_profile",
+        "title": "Get my profile",
+        "description": "Return the signed-in FitForge user's profile and roles.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_workouts",
+        "title": "List my workouts",
+        "description": "List the signed-in athlete's recent workouts (most recent first).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10,
+              "description": "Max workouts to return"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "log_workout",
+        "title": "Log a workout",
+        "description": "Log a completed workout for the signed-in athlete.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Workout name, e.g. 'Push day'"
+            },
+            "focus": {
+              "type": "string",
+              "description": "Muscle group / focus, e.g. 'chest, triceps'"
+            },
+            "duration_min": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 600
+            },
+            "notes": {
+              "type": "string",
+              "maxLength": 1000
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_food_prices",
+        "title": "List town food prices",
+        "description": "List current food prices in the athlete's town for AI meal planning.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City filter; defaults to 'default'"
+            },
+            "category": {
+              "type": "string",
+              "description": "Optional category filter: protein, carb, fat, fruit"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "suggest_cheap_meal",
+        "title": "Suggest cheap high-protein meal",
+        "description": "Suggest an affordable high-protein meal built from the town's cheapest foods within a budget (in cents).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "budget_cents": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 50000,
+              "description": "Budget in cents"
+            },
+            "min_protein_g": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 300,
+              "default": 30
+            },
+            "city": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "budget_cents"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

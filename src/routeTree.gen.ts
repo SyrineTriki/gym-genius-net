@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as SuperRouteImport } from './routes/super'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as GymsRouteImport } from './routes/gyms'
 import { Route as FoodRouteImport } from './routes/food'
 import { Route as CoachesRouteImport } from './routes/coaches'
 import { Route as CoachRouteImport } from './routes/coach'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
@@ -36,6 +38,10 @@ import { Route as AppMarketplaceRouteImport } from './routes/app.marketplace'
 import { Route as AppBudgetRouteImport } from './routes/app.budget'
 import { Route as AppAiCoachRouteImport } from './routes/app.ai-coach'
 import { Route as AppAchievementsRouteImport } from './routes/app.achievements'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -45,6 +51,11 @@ const UsersRoute = UsersRouteImport.update({
 const SuperRoute = SuperRouteImport.update({
   id: '/super',
   path: '/super',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GymsRoute = GymsRouteImport.update({
@@ -65,6 +76,11 @@ const CoachesRoute = CoachesRouteImport.update({
 const CoachRoute = CoachRouteImport.update({
   id: '/coach',
   path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -172,17 +188,44 @@ const AppAchievementsRoute = AppAchievementsRouteImport.update({
   path: '/achievements',
   getParentRoute: () => AppRoute,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/mcp': typeof McpRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/app/achievements': typeof AppAchievementsRoute
   '/app/ai-coach': typeof AppAiCoachRoute
   '/app/budget': typeof AppBudgetRoute
@@ -201,17 +244,23 @@ export interface FileRoutesByFullPath {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/mcp': typeof McpRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/app/achievements': typeof AppAchievementsRoute
   '/app/ai-coach': typeof AppAiCoachRoute
   '/app/budget': typeof AppBudgetRoute
@@ -230,18 +279,24 @@ export interface FileRoutesByTo {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
   '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRouteWithChildren
   '/coaches': typeof CoachesRoute
   '/food': typeof FoodRoute
   '/gyms': typeof GymsRoute
+  '/mcp': typeof McpRoute
   '/super': typeof SuperRouteWithChildren
   '/users': typeof UsersRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/app/achievements': typeof AppAchievementsRoute
   '/app/ai-coach': typeof AppAiCoachRoute
   '/app/budget': typeof AppBudgetRoute
@@ -260,6 +315,8 @@ export interface FileRoutesById {
   '/super/features': typeof SuperFeaturesRoute
   '/super/system': typeof SuperSystemRoute
   '/super/tenants': typeof SuperTenantsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -267,12 +324,16 @@ export interface FileRouteTypes {
     | '/'
     | '/analytics'
     | '/app'
+    | '/auth'
     | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
+    | '/mcp'
     | '/super'
     | '/users'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/app/achievements'
     | '/app/ai-coach'
     | '/app/budget'
@@ -291,17 +352,23 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/analytics'
     | '/app'
+    | '/auth'
     | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
+    | '/mcp'
     | '/super'
     | '/users'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/app/achievements'
     | '/app/ai-coach'
     | '/app/budget'
@@ -320,17 +387,23 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
     | '/'
     | '/analytics'
     | '/app'
+    | '/auth'
     | '/coach'
     | '/coaches'
     | '/food'
     | '/gyms'
+    | '/mcp'
     | '/super'
     | '/users'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/app/achievements'
     | '/app/ai-coach'
     | '/app/budget'
@@ -349,18 +422,26 @@ export interface FileRouteTypes {
     | '/super/features'
     | '/super/system'
     | '/super/tenants'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
   AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
   CoachRoute: typeof CoachRouteWithChildren
   CoachesRoute: typeof CoachesRoute
   FoodRoute: typeof FoodRoute
   GymsRoute: typeof GymsRoute
+  McpRoute: typeof McpRoute
   SuperRoute: typeof SuperRouteWithChildren
   UsersRoute: typeof UsersRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -377,6 +458,13 @@ declare module '@tanstack/react-router' {
       path: '/super'
       fullPath: '/super'
       preLoaderRoute: typeof SuperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gyms': {
@@ -405,6 +493,13 @@ declare module '@tanstack/react-router' {
       path: '/coach'
       fullPath: '/coach'
       preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app': {
@@ -554,6 +649,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAchievementsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -621,13 +744,30 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
   AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
   CoachRoute: CoachRouteWithChildren,
   CoachesRoute: CoachesRoute,
   FoodRoute: FoodRoute,
   GymsRoute: GymsRoute,
+  McpRoute: McpRoute,
   SuperRoute: SuperRouteWithChildren,
   UsersRoute: UsersRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
